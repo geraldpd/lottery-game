@@ -13,8 +13,7 @@
         name: 'numberButton',
         props: {
             number: Number,
-            pickedNumbers: Array,
-            maxPickedNumber: Number
+            pickedNumbers: Array
         },
         methods: {
             togglePick(number) {

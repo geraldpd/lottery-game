@@ -6,24 +6,37 @@
 
         <div class="card-body">
 
-            <div class="d-grid gap-2 col-6 mx-auto">
+            <div v-if="!play" class="d-grid gap-2 col-6 mx-auto">
                 <label for="">Numer of Games</label>
                 <input @change="generateRuns" type="number" class="form-control" v-model="runs" min="1">
 
                 <button :disabled="runs <= 0" @click="playLottery" class="btn btn-primary">Play Lottery</button>
             </div>
+
+            <div v-else class="d-grid gap-2 col-6 mx-auto">
+                <button @click="resetLottery" class="btn btn-secondary">Reset</button>
+            </div>
+
         </div>
+
+        <QuickRunTableVue v-if="play" :runNumbers="runNumbers" />
     </div>
 
 </template>
 
 <script>
+    import QuickRunTableVue from '@/components/QuickRunTable.vue'
+
     export default {
         name: 'quickRun',
+        components: {
+            QuickRunTableVue
+        },
         data() {
             return {
+                play: false,
                 runs: 1,
-                runNumbers: []
+                runNumbers: [],
             }
         },
         methods: {
@@ -55,9 +68,24 @@
                 return randomNumbers
             },
             playLottery() {
-                console.log(this.runNumbers)
+                this.play = true
                 //this.$router.push({ name: 'lottoResult', query:{pickedNumber: JSON.stringify(this.pickedNumbers)} });
+            },
+            resetLottery() {
+                this.play = false
+                this.runs = 1
+                this.runNumbers = []
+
+                this.generateRuns()
             }
+        },
+        created() {
+            if(! this.runs) {
+                return
+            }
+
+            //pre-populate runNumbers
+            this.generateRuns();
         }
     }
 </script>

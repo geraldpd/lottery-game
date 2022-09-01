@@ -1,17 +1,17 @@
 <template>
     <div class="card">
         <div class="card-header">
-            Manual Pick
+            Lucky Dip
         </div>
 
         <div class="card-body">
 
             <NumberButton
-            v-for="number in randomNumbers"
-            :number="number"
-            :pickedNumbers="[]"
-            :disabled="true"
-            :key="number"
+                v-for="number in randomNumbers"
+                :number="number"
+                :pickedNumbers="[]"
+                :disabled="true"
+                :key="number"
             />
 
             <div class="d-grid gap-2 col-6 mx-auto">

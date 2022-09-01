@@ -35,7 +35,7 @@
 
     <br>
 
-    <h5>Matches: {{ getTotalMatces  }}</h5>
+    <h5>Matches: {{ getTotalMatches  }}</h5>
     <h5>Winnings: {{ getTotalWinnings }}</h5>
 
     <br>
@@ -81,7 +81,7 @@
             }
         },
         computed: {
-            getTotalMatces() {
+            getTotalMatches() {
                 return this.pickedNumbers.filter(element => this.winningNumbers.includes(element)).length;
             },
             getTotalWinnings() {
@@ -89,16 +89,16 @@
                 let prize = 0
 
                 switch (true) {
-                    case this.getTotalMatces == 3:
+                    case this.getTotalMatches == 3:
                         prize = 50
                         break;
-                    case this.getTotalMatces == 4:
+                    case this.getTotalMatches == 4:
                         prize = 100
                         break;
-                    case this.getTotalMatces == 5:
+                    case this.getTotalMatches == 5:
                         prize = 200
                         break;
-                    case this.getTotalMatces == 6:
+                    case this.getTotalMatches == 6:
                         prize = 500
                         break;
 
