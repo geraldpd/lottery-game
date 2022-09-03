@@ -26,6 +26,7 @@
 
 <script>
     import NumberButton from '@/components/NumberButton'
+    import GenerateWinningNumbers from '@/mixins/generateWinningNumbers'
 
     export default {
         name: 'luckyDip',
@@ -34,37 +35,20 @@
                 randomNumbers: []
             }
         },
+        mixins: [GenerateWinningNumbers],
         components: {
             NumberButton
         },
         methods: {
             generateRandomNumbers() {
-                const n = 6
-
-                // Initial empty array
-                const randomNumbers = [];
-
-                do {
-                    // Generating random number
-                    const luckyNumber = Math.floor(Math.random() * 59) + 1
-
-                    if (!randomNumbers.includes(luckyNumber)) {
-                        randomNumbers.push(luckyNumber);
-                    }
-
-                } while (randomNumbers.length < n)
-
-                this.randomNumbers = randomNumbers
-
-                console.log(this.randomNumbers)
-                return randomNumbers
+                this.randomNumbers = this.generateWinningNumbers()//reused winning number function
             },
             playLottery() {
                 this.$router.push({ name: 'lottoResult', query:{pickedNumber: JSON.stringify(this.randomNumbers)} });
             }
         },
         created() {
-            this.randomNumbers = this.generateRandomNumbers()
+            this.generateRandomNumbers()
         }
     }
 </script>

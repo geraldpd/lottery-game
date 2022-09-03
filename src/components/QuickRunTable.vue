@@ -10,7 +10,8 @@
         <thead>
             <tr class="table-secondary">
                 <th scope="col">
-
+                    Winning Numbers
+                    <br>
                     <NumberButton
                         v-for="number in winningNumbers"
                         :number="number"
@@ -43,12 +44,15 @@
 <script>
     import QuickRunTableRowVue from './QuickRunTableRow.vue';
     import NumberButton from './NumberButton.vue';
+    import GenerateWinningNumbers from '@/mixins/generateWinningNumbers'
+    import PlayStats from '@/mixins/playStats'
 
     export default {
         name: 'quickRunTable',
         props: {
             runNumbers: Array
         },
+        mixins: [GenerateWinningNumbers, PlayStats],
         components: {
             QuickRunTableRowVue,
             NumberButton
@@ -61,24 +65,6 @@
             }
         },
         methods: {
-            generateWinningNumbers() {
-                const n = 6
-
-                // Initial empty array
-                const winningNumbers = [];
-
-                do {
-                    // Generating random number
-                    const luckyNumber = Math.floor(Math.random() * 59) + 1
-
-                    if (!winningNumbers.includes(luckyNumber)) {
-                        winningNumbers.push(luckyNumber);
-                    }
-
-                } while (winningNumbers.length < n)
-
-                return this.winningNumbers = winningNumbers
-            },
             getOverAllWinnings() {
 
                 let winnings = 0;
@@ -93,30 +79,7 @@
 
             },
             getWinnings(matches) {
-
-                let prize = 0
-
-                switch (true) {
-                    case matches == 3:
-                        prize = 50
-                        break;
-                    case matches == 4:
-                        prize = 100
-                        break;
-                    case matches == 5:
-                        prize = 200
-                        break;
-                    case matches == 6:
-                        prize = 500
-                        break;
-
-                    default:
-                        prize = 0
-                        break;
-                }
-
-                return prize
-
+                return this.getTotalWinnings(matches)
             },
         },
         computed: {
